@@ -1,0 +1,34 @@
+# Temporary Python files
+*.pyc
+*.egg-info
+__pycache__
+.ipynb_checkpoints
+
+
+# Temporary virtual environment files
+.cache
+/env
+
+# Temporary server files
+.env
+*.pid
+
+# Testing and coverage results
+.cache
+.pytest
+.coverage
+.coverage.*
+/htmlcov
+/pyunit.xml
+*.tmp
+
+# Build and release directories
+/build
+/dist
+
+# PyCharm/IntelliJ files
+/.idea
+.idea/*
+
+.vscode
+.vscode/*
