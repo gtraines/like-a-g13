@@ -3,18 +3,19 @@
 Benchmarks the difference between A1 and RGB24 memory layouts and also between
 python and C++ (via weave) implementations of the conversion layer.
 """
+from __future__ import print_function
+
 import math
 import struct
 import time
 
 import cairo
-from scipy import weave
 
 def python_a1(source, dest, width):
   row, col = 0, 0
   for pixels in source:
     pixels = pixels
-    for i in xrange(8):
+    for i in range(8):
       pixel = pixels & 1
       pixels >>= 1
       idx = 32 + col + (row/8)*width
