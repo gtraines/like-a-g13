@@ -1,10 +1,11 @@
+from __future__ import absolute_import
+from .g13_handler import G13Keys
+
 """Encompasses the state stack as given to the plugins.
 
 Plugins get registered for various actions in each state they wish. This object
 is then passed into plugins that are triggered for those actions.
 """
-
-from g13_handler import G13Keys
 
 class PluginState(object):
   def __init__(self, handler, action_helper):
