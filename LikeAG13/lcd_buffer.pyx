@@ -28,7 +28,6 @@ cpdef bytearray write_disp_matrix(unsigned int width, unsigned int threshold, un
     cdef unsigned char pixel_value = 0
     cdef bint show_pixel = False
     cdef unsigned int lcd_idx = 0
-    print("Source len", source_len)
 
     for pixel_index in range(source_len):
         if pixel_index % 4 == 0:

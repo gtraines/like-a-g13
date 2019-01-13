@@ -59,6 +59,7 @@ class G13Device(object):
 
             if self.device is None:
                 raise MissingG13Error()
+            return self.device
         except MissingG13Error as missing_ex:
             raise missing_ex
         except Exception as ex:
@@ -80,9 +81,11 @@ class G13Device(object):
         self.device_handle.claimInterface(self.INTERFACE)
 
     def close(self):
-        self.device_handle.releaseInterface(self.INTERFACE)
-        self.device_handle.close()
-        self.device_context.exit()
+        if self.device_handle is not None:
+            self.device_handle.releaseInterface(self.INTERFACE)
+            self.device_handle.close()
+        if self.device_context is not None:
+            self.device_context.exit()
 
     def get_keys(self):
         try:

@@ -1906,7 +1906,6 @@ extern int __pyx_module_is_main_LikeAG13__lcd_buffer;
 int __pyx_module_is_main_LikeAG13__lcd_buffer = 0;
 
 /* Implementation of 'LikeAG13.lcd_buffer' */
-static PyObject *__pyx_builtin_print;
 static PyObject *__pyx_builtin_range;
 static PyObject *__pyx_builtin_MemoryError;
 static PyObject *__pyx_builtin_ValueError;
@@ -1935,7 +1934,6 @@ static const char __pyx_k_ASCII[] = "ASCII";
 static const char __pyx_k_class[] = "__class__";
 static const char __pyx_k_error[] = "error";
 static const char __pyx_k_flags[] = "flags";
-static const char __pyx_k_print[] = "print";
 static const char __pyx_k_range[] = "range";
 static const char __pyx_k_shape[] = "shape";
 static const char __pyx_k_start[] = "start";
@@ -1962,7 +1960,6 @@ static const char __pyx_k_pyx_state[] = "__pyx_state";
 static const char __pyx_k_reduce_ex[] = "__reduce_ex__";
 static const char __pyx_k_threshold[] = "threshold";
 static const char __pyx_k_IndexError[] = "IndexError";
-static const char __pyx_k_Source_len[] = "Source len";
 static const char __pyx_k_ValueError[] = "ValueError";
 static const char __pyx_k_memoryview[] = "memoryview";
 static const char __pyx_k_pyx_result[] = "__pyx_result";
@@ -2025,7 +2022,6 @@ static PyObject *__pyx_kp_s_MemoryView_of_r_object;
 static PyObject *__pyx_n_b_O;
 static PyObject *__pyx_kp_s_Out_of_bounds_on_buffer_access_a;
 static PyObject *__pyx_n_s_PickleError;
-static PyObject *__pyx_kp_u_Source_len;
 static PyObject *__pyx_n_s_TypeError;
 static PyObject *__pyx_kp_s_Unable_to_convert_item_to_object;
 static PyObject *__pyx_n_s_ValueError;
@@ -2066,7 +2062,6 @@ static PyObject *__pyx_kp_s_no_default___reduce___due_to_non;
 static PyObject *__pyx_n_s_obj;
 static PyObject *__pyx_n_s_pack;
 static PyObject *__pyx_n_s_pickle;
-static PyObject *__pyx_n_s_print;
 static PyObject *__pyx_n_s_pyx_PickleError;
 static PyObject *__pyx_n_s_pyx_checksum;
 static PyObject *__pyx_n_s_pyx_getbuffer;
@@ -2356,7 +2351,7 @@ static PyObject *__pyx_f_8LikeAG13_10lcd_buffer_write_disp_matrix(unsigned int _
  * 
  *     cdef unsigned char[:] destination_mv = memoryview(destination_buffer)             # <<<<<<<<<<<<<<
  *     cdef unsigned int row = 0, col = 0
- *     #cdef size_t max_iterations
+ * 
  */
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_memoryview); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 22, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
@@ -2373,7 +2368,7 @@ static PyObject *__pyx_f_8LikeAG13_10lcd_buffer_write_disp_matrix(unsigned int _
  * 
  *     cdef unsigned char[:] destination_mv = memoryview(destination_buffer)
  *     cdef unsigned int row = 0, col = 0             # <<<<<<<<<<<<<<
- *     #cdef size_t max_iterations
+ * 
  *     cdef char threshold_byte = threshold
  */
   __pyx_v_row = 0;
@@ -2381,7 +2376,7 @@ static PyObject *__pyx_f_8LikeAG13_10lcd_buffer_write_disp_matrix(unsigned int _
 
   /* "LikeAG13/lcd_buffer.pyx":25
  *     cdef unsigned int row = 0, col = 0
- *     #cdef size_t max_iterations
+ * 
  *     cdef char threshold_byte = threshold             # <<<<<<<<<<<<<<
  * 
  *     cdef unsigned int pixel_index = 0
@@ -2411,7 +2406,7 @@ static PyObject *__pyx_f_8LikeAG13_10lcd_buffer_write_disp_matrix(unsigned int _
  *     cdef unsigned char pixel_value = 0
  *     cdef bint show_pixel = False             # <<<<<<<<<<<<<<
  *     cdef unsigned int lcd_idx = 0
- *     print("Source len", source_len)
+ * 
  */
   __pyx_v_show_pixel = 0;
 
@@ -2419,35 +2414,13 @@ static PyObject *__pyx_f_8LikeAG13_10lcd_buffer_write_disp_matrix(unsigned int _
  *     cdef unsigned char pixel_value = 0
  *     cdef bint show_pixel = False
  *     cdef unsigned int lcd_idx = 0             # <<<<<<<<<<<<<<
- *     print("Source len", source_len)
- * 
- */
-  __pyx_v_lcd_idx = 0;
-
-  /* "LikeAG13/lcd_buffer.pyx":31
- *     cdef bint show_pixel = False
- *     cdef unsigned int lcd_idx = 0
- *     print("Source len", source_len)             # <<<<<<<<<<<<<<
  * 
  *     for pixel_index in range(source_len):
  */
-  __pyx_t_4 = __Pyx_PyInt_From_unsigned_int(__pyx_v_source_len); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 31, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 31, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_INCREF(__pyx_kp_u_Source_len);
-  __Pyx_GIVEREF(__pyx_kp_u_Source_len);
-  PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_kp_u_Source_len);
-  __Pyx_GIVEREF(__pyx_t_4);
-  PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_4);
-  __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_t_3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 31, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_v_lcd_idx = 0;
 
-  /* "LikeAG13/lcd_buffer.pyx":33
- *     print("Source len", source_len)
+  /* "LikeAG13/lcd_buffer.pyx":32
+ *     cdef unsigned int lcd_idx = 0
  * 
  *     for pixel_index in range(source_len):             # <<<<<<<<<<<<<<
  *         if pixel_index % 4 == 0:
@@ -2458,7 +2431,7 @@ static PyObject *__pyx_f_8LikeAG13_10lcd_buffer_write_disp_matrix(unsigned int _
   for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
     __pyx_v_pixel_index = __pyx_t_8;
 
-    /* "LikeAG13/lcd_buffer.pyx":34
+    /* "LikeAG13/lcd_buffer.pyx":33
  * 
  *     for pixel_index in range(source_len):
  *         if pixel_index % 4 == 0:             # <<<<<<<<<<<<<<
@@ -2468,7 +2441,7 @@ static PyObject *__pyx_f_8LikeAG13_10lcd_buffer_write_disp_matrix(unsigned int _
     __pyx_t_9 = ((__Pyx_mod_long(__pyx_v_pixel_index, 4) == 0) != 0);
     if (__pyx_t_9) {
 
-      /* "LikeAG13/lcd_buffer.pyx":36
+      /* "LikeAG13/lcd_buffer.pyx":35
  *         if pixel_index % 4 == 0:
  * 
  *             pixel_value = surface_buffer[pixel_index]             # <<<<<<<<<<<<<<
@@ -2480,11 +2453,11 @@ static PyObject *__pyx_f_8LikeAG13_10lcd_buffer_write_disp_matrix(unsigned int _
       if (unlikely(__pyx_t_1 >= (size_t)__pyx_v_surface_buffer.shape[0])) __pyx_t_10 = 0;
       if (unlikely(__pyx_t_10 != -1)) {
         __Pyx_RaiseBufferIndexError(__pyx_t_10);
-        __PYX_ERR(0, 36, __pyx_L1_error)
+        __PYX_ERR(0, 35, __pyx_L1_error)
       }
       __pyx_v_pixel_value = (*((unsigned char *) ( /* dim=0 */ (__pyx_v_surface_buffer.data + __pyx_t_1 * __pyx_v_surface_buffer.strides[0]) )));
 
-      /* "LikeAG13/lcd_buffer.pyx":38
+      /* "LikeAG13/lcd_buffer.pyx":37
  *             pixel_value = surface_buffer[pixel_index]
  * 
  *             show_pixel = _rgb_r(pixel_value) > threshold or \             # <<<<<<<<<<<<<<
@@ -2498,7 +2471,7 @@ static PyObject *__pyx_f_8LikeAG13_10lcd_buffer_write_disp_matrix(unsigned int _
         goto __pyx_L6_bool_binop_done;
       }
 
-      /* "LikeAG13/lcd_buffer.pyx":39
+      /* "LikeAG13/lcd_buffer.pyx":38
  * 
  *             show_pixel = _rgb_r(pixel_value) > threshold or \
  *                 _rgb_g(pixel_value) > threshold or \             # <<<<<<<<<<<<<<
@@ -2512,7 +2485,7 @@ static PyObject *__pyx_f_8LikeAG13_10lcd_buffer_write_disp_matrix(unsigned int _
         goto __pyx_L6_bool_binop_done;
       }
 
-      /* "LikeAG13/lcd_buffer.pyx":40
+      /* "LikeAG13/lcd_buffer.pyx":39
  *             show_pixel = _rgb_r(pixel_value) > threshold or \
  *                 _rgb_g(pixel_value) > threshold or \
  *                 _rgb_b(pixel_value) > threshold             # <<<<<<<<<<<<<<
@@ -2524,7 +2497,7 @@ static PyObject *__pyx_f_8LikeAG13_10lcd_buffer_write_disp_matrix(unsigned int _
       __pyx_L6_bool_binop_done:;
       __pyx_v_show_pixel = __pyx_t_9;
 
-      /* "LikeAG13/lcd_buffer.pyx":42
+      /* "LikeAG13/lcd_buffer.pyx":41
  *                 _rgb_b(pixel_value) > threshold
  * 
  *             lcd_idx = 32 + col + (row >> 3) * width             # <<<<<<<<<<<<<<
@@ -2533,7 +2506,7 @@ static PyObject *__pyx_f_8LikeAG13_10lcd_buffer_write_disp_matrix(unsigned int _
  */
       __pyx_v_lcd_idx = ((32 + __pyx_v_col) + ((__pyx_v_row >> 3) * __pyx_v_width));
 
-      /* "LikeAG13/lcd_buffer.pyx":43
+      /* "LikeAG13/lcd_buffer.pyx":42
  * 
  *             lcd_idx = 32 + col + (row >> 3) * width
  *             if lcd_idx < destination_len:             # <<<<<<<<<<<<<<
@@ -2543,7 +2516,7 @@ static PyObject *__pyx_f_8LikeAG13_10lcd_buffer_write_disp_matrix(unsigned int _
       __pyx_t_9 = ((__pyx_v_lcd_idx < __pyx_v_destination_len) != 0);
       if (__pyx_t_9) {
 
-        /* "LikeAG13/lcd_buffer.pyx":44
+        /* "LikeAG13/lcd_buffer.pyx":43
  *             lcd_idx = 32 + col + (row >> 3) * width
  *             if lcd_idx < destination_len:
  *                 if show_pixel:             # <<<<<<<<<<<<<<
@@ -2553,7 +2526,7 @@ static PyObject *__pyx_f_8LikeAG13_10lcd_buffer_write_disp_matrix(unsigned int _
         __pyx_t_9 = (__pyx_v_show_pixel != 0);
         if (__pyx_t_9) {
 
-          /* "LikeAG13/lcd_buffer.pyx":45
+          /* "LikeAG13/lcd_buffer.pyx":44
  *             if lcd_idx < destination_len:
  *                 if show_pixel:
  *                     destination_mv[lcd_idx] |= 1 << (row & 0x07)             # <<<<<<<<<<<<<<
@@ -2565,11 +2538,11 @@ static PyObject *__pyx_f_8LikeAG13_10lcd_buffer_write_disp_matrix(unsigned int _
           if (unlikely(__pyx_t_12 >= (size_t)__pyx_v_destination_mv.shape[0])) __pyx_t_10 = 0;
           if (unlikely(__pyx_t_10 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 45, __pyx_L1_error)
+            __PYX_ERR(0, 44, __pyx_L1_error)
           }
           *((unsigned char *) ( /* dim=0 */ (__pyx_v_destination_mv.data + __pyx_t_12 * __pyx_v_destination_mv.strides[0]) )) |= (1 << (__pyx_v_row & 0x07));
 
-          /* "LikeAG13/lcd_buffer.pyx":44
+          /* "LikeAG13/lcd_buffer.pyx":43
  *             lcd_idx = 32 + col + (row >> 3) * width
  *             if lcd_idx < destination_len:
  *                 if show_pixel:             # <<<<<<<<<<<<<<
@@ -2579,12 +2552,12 @@ static PyObject *__pyx_f_8LikeAG13_10lcd_buffer_write_disp_matrix(unsigned int _
           goto __pyx_L10;
         }
 
-        /* "LikeAG13/lcd_buffer.pyx":47
+        /* "LikeAG13/lcd_buffer.pyx":46
  *                     destination_mv[lcd_idx] |= 1 << (row & 0x07)
  *                 else:
  *                     destination_mv[lcd_idx] &= ~(1 << (row & 0x07))             # <<<<<<<<<<<<<<
- *         # else:
- *         #     print("Overran destination buffer")
+ *             col += 1
+ *             if col >= width:
  */
         /*else*/ {
           __pyx_t_13 = __pyx_v_lcd_idx;
@@ -2592,13 +2565,13 @@ static PyObject *__pyx_f_8LikeAG13_10lcd_buffer_write_disp_matrix(unsigned int _
           if (unlikely(__pyx_t_13 >= (size_t)__pyx_v_destination_mv.shape[0])) __pyx_t_10 = 0;
           if (unlikely(__pyx_t_10 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 47, __pyx_L1_error)
+            __PYX_ERR(0, 46, __pyx_L1_error)
           }
           *((unsigned char *) ( /* dim=0 */ (__pyx_v_destination_mv.data + __pyx_t_13 * __pyx_v_destination_mv.strides[0]) )) &= (~(1 << (__pyx_v_row & 0x07)));
         }
         __pyx_L10:;
 
-        /* "LikeAG13/lcd_buffer.pyx":43
+        /* "LikeAG13/lcd_buffer.pyx":42
  * 
  *             lcd_idx = 32 + col + (row >> 3) * width
  *             if lcd_idx < destination_len:             # <<<<<<<<<<<<<<
@@ -2607,17 +2580,17 @@ static PyObject *__pyx_f_8LikeAG13_10lcd_buffer_write_disp_matrix(unsigned int _
  */
       }
 
-      /* "LikeAG13/lcd_buffer.pyx":53
- *         #     print("Current index: ", lcd_idx)
- * 
+      /* "LikeAG13/lcd_buffer.pyx":47
+ *                 else:
+ *                     destination_mv[lcd_idx] &= ~(1 << (row & 0x07))
  *             col += 1             # <<<<<<<<<<<<<<
  *             if col >= width:
  *                 col = 0
  */
       __pyx_v_col = (__pyx_v_col + 1);
 
-      /* "LikeAG13/lcd_buffer.pyx":54
- * 
+      /* "LikeAG13/lcd_buffer.pyx":48
+ *                     destination_mv[lcd_idx] &= ~(1 << (row & 0x07))
  *             col += 1
  *             if col >= width:             # <<<<<<<<<<<<<<
  *                 col = 0
@@ -2626,7 +2599,7 @@ static PyObject *__pyx_f_8LikeAG13_10lcd_buffer_write_disp_matrix(unsigned int _
       __pyx_t_9 = ((__pyx_v_col >= __pyx_v_width) != 0);
       if (__pyx_t_9) {
 
-        /* "LikeAG13/lcd_buffer.pyx":55
+        /* "LikeAG13/lcd_buffer.pyx":49
  *             col += 1
  *             if col >= width:
  *                 col = 0             # <<<<<<<<<<<<<<
@@ -2635,7 +2608,7 @@ static PyObject *__pyx_f_8LikeAG13_10lcd_buffer_write_disp_matrix(unsigned int _
  */
         __pyx_v_col = 0;
 
-        /* "LikeAG13/lcd_buffer.pyx":56
+        /* "LikeAG13/lcd_buffer.pyx":50
  *             if col >= width:
  *                 col = 0
  *                 row +=1             # <<<<<<<<<<<<<<
@@ -2644,8 +2617,8 @@ static PyObject *__pyx_f_8LikeAG13_10lcd_buffer_write_disp_matrix(unsigned int _
  */
         __pyx_v_row = (__pyx_v_row + 1);
 
-        /* "LikeAG13/lcd_buffer.pyx":54
- * 
+        /* "LikeAG13/lcd_buffer.pyx":48
+ *                     destination_mv[lcd_idx] &= ~(1 << (row & 0x07))
  *             col += 1
  *             if col >= width:             # <<<<<<<<<<<<<<
  *                 col = 0
@@ -2653,7 +2626,7 @@ static PyObject *__pyx_f_8LikeAG13_10lcd_buffer_write_disp_matrix(unsigned int _
  */
       }
 
-      /* "LikeAG13/lcd_buffer.pyx":34
+      /* "LikeAG13/lcd_buffer.pyx":33
  * 
  *     for pixel_index in range(source_len):
  *         if pixel_index % 4 == 0:             # <<<<<<<<<<<<<<
@@ -2663,7 +2636,7 @@ static PyObject *__pyx_f_8LikeAG13_10lcd_buffer_write_disp_matrix(unsigned int _
     }
   }
 
-  /* "LikeAG13/lcd_buffer.pyx":58
+  /* "LikeAG13/lcd_buffer.pyx":52
  *                 row +=1
  * 
  *     return destination_buffer             # <<<<<<<<<<<<<<
@@ -16956,7 +16929,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_b_O, __pyx_k_O, sizeof(__pyx_k_O), 0, 0, 0, 1},
   {&__pyx_kp_s_Out_of_bounds_on_buffer_access_a, __pyx_k_Out_of_bounds_on_buffer_access_a, sizeof(__pyx_k_Out_of_bounds_on_buffer_access_a), 0, 0, 1, 0},
   {&__pyx_n_s_PickleError, __pyx_k_PickleError, sizeof(__pyx_k_PickleError), 0, 0, 1, 1},
-  {&__pyx_kp_u_Source_len, __pyx_k_Source_len, sizeof(__pyx_k_Source_len), 0, 1, 0, 0},
   {&__pyx_n_s_TypeError, __pyx_k_TypeError, sizeof(__pyx_k_TypeError), 0, 0, 1, 1},
   {&__pyx_kp_s_Unable_to_convert_item_to_object, __pyx_k_Unable_to_convert_item_to_object, sizeof(__pyx_k_Unable_to_convert_item_to_object), 0, 0, 1, 0},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
@@ -16997,7 +16969,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_obj, __pyx_k_obj, sizeof(__pyx_k_obj), 0, 0, 1, 1},
   {&__pyx_n_s_pack, __pyx_k_pack, sizeof(__pyx_k_pack), 0, 0, 1, 1},
   {&__pyx_n_s_pickle, __pyx_k_pickle, sizeof(__pyx_k_pickle), 0, 0, 1, 1},
-  {&__pyx_n_s_print, __pyx_k_print, sizeof(__pyx_k_print), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_PickleError, __pyx_k_pyx_PickleError, sizeof(__pyx_k_pyx_PickleError), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_checksum, __pyx_k_pyx_checksum, sizeof(__pyx_k_pyx_checksum), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_getbuffer, __pyx_k_pyx_getbuffer, sizeof(__pyx_k_pyx_getbuffer), 0, 0, 1, 1},
@@ -17033,8 +17004,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_print = __Pyx_GetBuiltinName(__pyx_n_s_print); if (!__pyx_builtin_print) __PYX_ERR(0, 31, __pyx_L1_error)
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 33, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 32, __pyx_L1_error)
   __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_n_s_MemoryError); if (!__pyx_builtin_MemoryError) __PYX_ERR(1, 109, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(2, 133, __pyx_L1_error)
   __pyx_builtin_enumerate = __Pyx_GetBuiltinName(__pyx_n_s_enumerate); if (!__pyx_builtin_enumerate) __PYX_ERR(2, 151, __pyx_L1_error)
