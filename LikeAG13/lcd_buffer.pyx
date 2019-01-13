@@ -1,7 +1,6 @@
 cimport cython
-import cairo
 from cpython.array cimport array
-from cpython.buffer cimport PyObject_GetBuffer
+
 
 cdef inline unsigned int _rgb_r(unsigned int pixel_value):
     #define RGB_R(x) ((x&0x00FF0000) >> 16)
@@ -15,40 +14,45 @@ cdef inline unsigned int _rgb_b(unsigned int pixel_value):
     #define RGB_B(x) ((x&0x000000FF) >> 0)
     return pixel_value & 0x000000FF >> 0
 
-cdef write_disp_matrix(unsigned int width, unsigned int threshold, array* surface_buffer):
-    # calling semantics:
-    # self.surface = cairo.ImageSurface(cairo.FORMAT_RGB24, g13.LCD_WIDTH, g13.LCD_HEIGHT)
-    # self.context = cairo.Context(self.surface)
-    # surface_buffer = cairo.surface.get_data()
+cpdef bytearray write_disp_matrix(unsigned int width, unsigned int threshold, unsigned char[:] surface_buffer, bytearray destination_buffer):
 
-    cdef unsigned source_len = len(surface_buffer)
-    cdef bytes destination_buffer
+    cdef unsigned int source_len = len(surface_buffer)
+    cdef unsigned int destination_len = len(destination_buffer)
 
-    cdef unsigned row = 0, col = 0
-    cdef size_t max_iterations
-    cdef unsigned threshold = 128
+    cdef unsigned char[:] destination_mv = memoryview(destination_buffer)
+    cdef unsigned int row = 0, col = 0
+    #cdef size_t max_iterations
     cdef char threshold_byte = threshold
 
-    cdef int pixel_index = 0
-    cdef int pixel_value = 0
+    cdef unsigned int pixel_index = 0
+    cdef unsigned char pixel_value = 0
     cdef bint show_pixel = False
-    cdef int lcd_idx = 0
+    cdef unsigned int lcd_idx = 0
+    print("Source len", source_len)
 
     for pixel_index in range(source_len):
-      pixel_value = surface_buffer[pixel_index]
+        if pixel_index % 4 == 0:
 
-      show_pixel = _rgb_r(pixel_value) > threshold or \
-            _rgb_g(pixel_value) > threshold or \
-            _rgb_b(pixel_value) > threshold
+            pixel_value = surface_buffer[pixel_index]
 
-      lcd_idx = 32 + col + (row >> 3) * width
+            show_pixel = _rgb_r(pixel_value) > threshold or \
+                _rgb_g(pixel_value) > threshold or \
+                _rgb_b(pixel_value) > threshold
 
-      if show_pixel:
-        destination_buffer[lcd_idx] |= 1 << (row & 0x07)
-      else:
-        destination_buffer[lcd_idx] &= ~(1 << (row & 0x07))
+            lcd_idx = 32 + col + (row >> 3) * width
+            if lcd_idx < destination_len:
+                if show_pixel:
+                    destination_mv[lcd_idx] |= 1 << (row & 0x07)
+                else:
+                    destination_mv[lcd_idx] &= ~(1 << (row & 0x07))
+        # else:
+        #     print("Overran destination buffer")
+        #     print("Destination length: ", destination_len)
+        #     print("Current index: ", lcd_idx)
 
-      col += 1
-      if col >= width:
-        col = 0
-        row +=1
+            col += 1
+            if col >= width:
+                col = 0
+                row +=1
+
+    return destination_buffer

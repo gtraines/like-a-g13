@@ -1,17 +1,23 @@
 import collections
 import platform
-
 import usb1
 
 G13_KEY_BYTES = collections.namedtuple('G13_KEY_BYTES', [
     'stick_x', 'stick_y', 'keys'])
+
+NamedColor = collections.namedtuple('NamedColor', [
+    'name', 'red_value', 'green_value', 'blue_value'])
+
+
+class LedColors(object):
+    FUSCHIA = NamedColor('fuschia', 100, 100, 100)
 
 
 class MissingG13Error(Exception):
     """No G13 found on USB."""
 
 
-class G13(object):
+class G13Device(object):
     VENDOR_ID = 0x046d
     PRODUCT_ID = 0xc21c
     INTERFACE = 0
@@ -22,12 +28,11 @@ class G13(object):
     REQUEST_TYPE = usb1.REQUEST_TYPE_CLASS | usb1.RECIPIENT_INTERFACE
 
     LCD_WIDTH = 160
-    LCD_HEIGHT = 44
+    LCD_HEIGHT = 43
 
     def __init__(self):
         # 160 across and 43 down (6 bytes down)
-        self.pixels = bytearray(992)
-        self.pixels[0] = 3
+        self.pixels = self.get_new_buffer()
         self.device_handle = None
         self.device_context = None
         self.open()
@@ -70,14 +75,27 @@ class G13(object):
             timeout=1000)
 
     def set_color(self, color):
-        data = ''.join(map(chr, [7, color[0], color[1], color[2], 0]))
+        self.set_color_from_rgb(color[0], color[1], color[2])
+
+    def set_color_from_rgb(self, red_value, green_value, blue_value):
+        data = ''.join(map(chr, [7, red_value, green_value, blue_value, 0]))
         self.device_handle.controlWrite(
             request_type=self.REQUEST_TYPE, request=9,
             value=self.COLOR_CONTROL, index=0, data=data.encode(),
             timeout=1000)
 
+    @staticmethod
+    def get_new_buffer():
+        new_buffer = bytearray(992)
+        new_buffer[0] = 3
+        return new_buffer
+
     def update_lcd_from_pixels(self):
-        self.device_handle.interruptWrite(endpoint=2, data=str(self.pixels), timeout=1000)
+        self.device_handle.interruptWrite(endpoint=2, data=memoryview(self.pixels).tobytes(), timeout=1000)
+
+    def update_lcd_from_buffer(self, bytesarray_buffer):
+        self.pixels = bytesarray_buffer
+        self.update_lcd_from_pixels()
 
     def set_pixel(self, x, y, val):
         x = min(x, 159)

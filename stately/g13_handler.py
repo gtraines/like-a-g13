@@ -1,5 +1,5 @@
 import usb1
-from LikeAG13.g13 import G13, G13_KEY_BYTES
+from LikeAG13.g13_device import G13, G13_KEY_BYTES
 
 
 class G13Keys(object):
