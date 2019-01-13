@@ -29,13 +29,14 @@ class G13Lcd(G13Device):
         self.context.set_font_size(10)
 
     def print_time(self):
+        text = datetime.datetime.now().strftime('%I:%M:%S')
+        self.print_text(text)
+
+    def print_text(self, text):
         self.reset()
 
         width, height = self.context.text_extents('aA')[2:4]
-        print(self.context.text_extents('aA'))
         self.context.move_to(0, height)
-        text = datetime.datetime.now().strftime('%I:%M:%S')
-        print(text)
 
         self.context.show_text(text)
         self.draw_surface()
@@ -51,7 +52,7 @@ class G13Lcd(G13Device):
 
     def draw_surface(self):
         source = self.surface.get_data()
-        self.surface.write_to_png('surface_data.png')
+        # self.surface.write_to_png('surface_data.png')
         destination_buffer = self.get_new_buffer()
         width = self.LCD_WIDTH
         threshold = 128

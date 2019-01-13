@@ -21,7 +21,7 @@ cpdef bytearray write_disp_matrix(unsigned int width, unsigned int threshold, un
 
     cdef unsigned char[:] destination_mv = memoryview(destination_buffer)
     cdef unsigned int row = 0, col = 0
-    #cdef size_t max_iterations
+
     cdef char threshold_byte = threshold
 
     cdef unsigned int pixel_index = 0
@@ -45,11 +45,6 @@ cpdef bytearray write_disp_matrix(unsigned int width, unsigned int threshold, un
                     destination_mv[lcd_idx] |= 1 << (row & 0x07)
                 else:
                     destination_mv[lcd_idx] &= ~(1 << (row & 0x07))
-        # else:
-        #     print("Overran destination buffer")
-        #     print("Destination length: ", destination_len)
-        #     print("Current index: ", lcd_idx)
-
             col += 1
             if col >= width:
                 col = 0
