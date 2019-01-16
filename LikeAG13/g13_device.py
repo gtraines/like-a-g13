@@ -165,7 +165,9 @@ class G13Device(object):
                 if usb_ex.value == -7:
                     pass
             if data is not None:
-                keys = list(map(ord, data))
+                print(data)
+                # ord() expected string of length 1, but int found
+                keys = list(map(ord, [chr(byte) for byte in data]))
                 keys[7] &= ~0x80  # knock out a floating-value key
                 return G13_KEY_BYTES(keys[1], keys[2], keys[3:])
             return None
