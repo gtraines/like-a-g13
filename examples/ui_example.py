@@ -7,64 +7,7 @@ import time
 
 import usb1
 
-from LikeAG13 import G13Lcd, MissingG13Error
-
-G13_KEYS = [  # Which bit should be set
-    # /* byte 3 */
-    'G01',
-    'G02',
-    'G03',
-    'G04',
-
-    'G05',
-    'G06',
-    'G07',
-    'G08',
-
-    # /* byte 4 */
-    'G09',
-    'G10',
-    'G11',
-    'G12',
-
-    'G13',
-    'G14',
-    'G15',
-    'G16',
-
-    # /* byte 5 */
-    'G17',
-    'G18',
-    'G19',
-    'G20',
-
-    'G21',
-    'G22',
-    'UN1',  # 'UNDEF1',
-    'LST',  # 'LIGHT_STATE',
-
-    # /* byte 6 */
-    'BD',
-    'L1',
-    'L2',
-    'L3',
-
-    'L4',
-    'M1',
-    'M2',
-    'M3',
-
-    # /* byte 7 */
-    'MR',
-    'LFT',
-    'DWN',
-    'TOP',
-
-    'UN2',  # 'UNDEF2',
-    'LT1',  # 'LIGHT',
-    'LT2',  # 'LIGHT2',
-    # 'MISC_TOGGLE',
-]
+from LikeAG13 import G13Lcd, G13_KEYS, LedColors, MissingG13Error
 
 
 class TerminalUI(object):
@@ -166,6 +109,116 @@ def lcd_only_ui():
     return
 
 
+def lcd_only_ui_colors():
+    g13 = try_get_g13()
+
+    g13.draw_image('x.png', scale=0.2, offset=(200, 0))
+
+    g13.set_led_mode(16)
+
+    try:
+        while True:  # for i in range(300):
+
+            # YELLOW
+            g13.print_text('255 0 0')
+            g13.set_color_from_rgb(255, 0, 0)
+            time.sleep(1)
+
+            # WHITE
+            g13.print_text('WHITE')
+            g13.set_color_from_rgb(180, 180, 180)
+            time.sleep(1)
+
+            # TEAL
+            g13.print_text('0 255 0')
+            g13.set_color_from_rgb(0, 255, 0)
+            time.sleep(1)
+
+            # PINK
+            g13.print_text('PINK')
+            g13.set_color_from_rgb(200, 200, 200)
+            time.sleep(1)
+
+            # MAGENTA
+            g13.print_text('MAGENTA')
+            g13.set_color_from_rgb(40, 30, 200)
+            time.sleep(1)
+
+            # # LIGHTS OUT
+            # g13.print_text('0 0 0')
+            # g13.set_color_from_rgb(0, 0, 0)
+            # time.sleep(1)
+
+            for value0 in range(0, 255, 5):
+                for value1 in range(0, 255, 5):
+                    for value2 in range(0, 255, 5):
+
+                        g13.print_text('{} {} {}'.format(value0, value1, value2))
+                        g13.set_color_from_rgb(value0, value1, value2)
+                        time.sleep(0.1)
+                        try:
+                            keypress = g13.get_key_press_bytes()
+                            if keypress is not None:
+                                print(keypress)
+                        except Exception as ex:
+                            print(ex)
+
+
+                        #
+                        # parsed_version = g13.parse_keys()
+                        # if parsed_version is not None:
+                        #     print('parsed version: ')
+                        #     print(parsed_version)
+
+                        # g13.print_text('AQUA')
+            # g13.set_color_from_named_color(LedColors.AQUA)
+            # time.sleep(1)
+            #
+            # g13.print_text('BLUE')
+            # g13.set_color_from_named_color(LedColors.BLUE)
+            # time.sleep(1)
+            #
+            # g13.print_text('FUSCHIA')
+            # g13.set_color_from_named_color(LedColors.FUSCHIA)
+            # time.sleep(1)
+            #
+            # g13.print_text('GREEN')
+            # g13.set_color_from_named_color(LedColors.GREEN)
+            # time.sleep(1)
+            #
+            # g13.print_text('LIME')
+            # g13.set_color_from_named_color(LedColors.LIME)
+            # time.sleep(1)
+            #
+            # g13.print_text('MAROON')
+            # g13.set_color_from_named_color(LedColors.MAROON)
+            # time.sleep(1)
+            #
+            # g13.print_text('PINK')
+            # g13.set_color_from_named_color(LedColors.PINK)
+            # time.sleep(1)
+            #
+            # g13.print_text('PURPLE')
+            # g13.set_color_from_named_color(LedColors.PURPLE)
+            # time.sleep(1)
+            #
+            # g13.print_text('RED')
+            # g13.set_color_from_named_color(LedColors.RED)
+            # time.sleep(1)
+            #
+            # g13.print_text('YELLOW')
+            # g13.set_color_from_named_color(LedColors.YELLOW)
+            # time.sleep(1)
+            #
+
+    except Exception as e:
+        print(e)
+    except KeyboardInterrupt:
+        print('^C')
+    finally:
+        g13.close()
+    return
+
 def std_out_ui():
     g13 = try_get_g13()
     ui = TerminalUI()
@@ -173,7 +226,7 @@ def std_out_ui():
     try:
         while True:
             try:
-                keys = g13.get_keys()
+                keys = g13.get_key_press_bytes()
 
                 g13.print_stick(keys.stick_x, keys.stick_y)
                 ui.print_stick(keys.stick_x, keys.stick_y)
@@ -204,4 +257,4 @@ def parse_keys(ui, keys):
 
 
 if __name__ == '__main__':
-    lcd_only_ui()
+    lcd_only_ui_colors()

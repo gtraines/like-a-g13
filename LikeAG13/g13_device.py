@@ -1,16 +1,84 @@
 import collections
 import platform
 import usb1
+from usb1 import USBError
 
 G13_KEY_BYTES = collections.namedtuple('G13_KEY_BYTES', [
     'stick_x', 'stick_y', 'keys'])
 
+KeyPress = collections.namedtuple('KeyPress', ['key_name', 'is_pressed'])
 NamedColor = collections.namedtuple('NamedColor', [
     'name', 'red_value', 'green_value', 'blue_value'])
 
+G13_KEYS = [  # Which bit should be set
+    # /* byte 3 */
+    'G01',
+    'G02',
+    'G03',
+    'G04',
+
+    'G05',
+    'G06',
+    'G07',
+    'G08',
+
+    # /* byte 4 */
+    'G09',
+    'G10',
+    'G11',
+    'G12',
+
+    'G13',
+    'G14',
+    'G15',
+    'G16',
+
+    # /* byte 5 */
+    'G17',
+    'G18',
+    'G19',
+    'G20',
+
+    'G21',
+    'G22',
+    'UN1',  # 'UNDEF1',
+    'LST',  # 'LIGHT_STATE',
+
+    # /* byte 6 */
+    'BD',
+    'L1',
+    'L2',
+    'L3',
+
+    'L4',
+    'M1',
+    'M2',
+    'M3',
+
+    # /* byte 7 */
+    'MR',
+    'LFT',
+    'DWN',
+    'TOP',
+
+    'UN2',  # 'UNDEF2',
+    'LT1',  # 'LIGHT',
+    'LT2',  # 'LIGHT2',
+    # 'MISC_TOGGLE',
+]
+
 
 class LedColors(object):
-    FUSCHIA = NamedColor('fuschia', 100, 100, 100)
+    PINK = NamedColor('pink', 100, 100, 100)
+    FUSCHIA = NamedColor('fuschia', 255, 100, 255)
+    PURPLE = NamedColor('purple', 128, 0, 128)
+    RED = NamedColor('red', 255, 0, 0)
+    MAROON = NamedColor('maroon', 128, 0, 0)
+    YELLOW = NamedColor('yellow', 250, 250, 0)
+    GREEN = NamedColor('green', 5, 200, 5)
+    LIME = NamedColor('lime', 0, 255, 0)
+    AQUA = NamedColor('aqua', 0, 255, 255)
+    BLUE = NamedColor('blue', 0, 128, 255)
 
 
 class MissingG13Error(Exception):
@@ -87,15 +155,34 @@ class G13Device(object):
         if self.device_context is not None:
             self.device_context.exit()
 
-    def get_keys(self):
+    def get_key_press_bytes(self):
         try:
-            data = self.device_handle.interruptRead(
-                endpoint=self.KEY_ENDPOINT, length=self.REPORT_SIZE, timeout=100)
-            keys = list(map(ord, data))
-            keys[7] &= ~0x80  # knock out a floating-value key
-            return G13_KEY_BYTES(keys[1], keys[2], keys[3:])
+            data = None
+            try:
+                data = self.device_handle.interruptRead(
+                    endpoint=self.KEY_ENDPOINT, length=self.REPORT_SIZE, timeout=500)
+            except USBError as usb_ex:
+                if usb_ex.value == -7:
+                    pass
+            if data is not None:
+                keys = list(map(ord, data))
+                keys[7] &= ~0x80  # knock out a floating-value key
+                return G13_KEY_BYTES(keys[1], keys[2], keys[3:])
+            return None
         except Exception as ex:
+            print(ex)
             self.close()
+            raise ex
+
+    def parse_keys(self):
+        keys = self.get_key_press_bytes()
+        if not any(keys.keys):
+            return None
+        key_press_bit_map = []
+        for i, key in enumerate(G13_KEYS):
+            b = keys.keys[int(i / 8)]
+            key_press_bit_map.append(KeyPress(key, b & 1 << (i % 8)))
+        return key_press_bit_map
 
     def set_led_mode(self, mode):
         try:
